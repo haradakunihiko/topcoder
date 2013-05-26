@@ -7,7 +7,6 @@ public class EelAndRabbit {
 		for (int i = 0; i < l.length; i++) {
 			list.add(new Eel(t[i], t[i] + l[i]));
 		}
-		// i番目の頭のタイミングで捕まえる事ができる場合を1で表現。
 		long[] catched = new long[list.size()];
 		for (int i = 0; i < list.size(); i++) {
 			Eel first = list.get(i);
@@ -22,7 +21,6 @@ public class EelAndRabbit {
 		int total = 0;
 		for (int i = 0; i < catched.length; i++) {
 			for (int j = i; j < catched.length; j++) {
-				// 2回の試行での、最大合計値を計測
 				total = Math.max(total, Long.bitCount(catched[i] | catched[j]));
 			}
 		}
