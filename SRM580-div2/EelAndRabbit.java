@@ -9,11 +9,11 @@ public class EelAndRabbit {
 		}
 		long[] catched = new long[list.size()];
 		for (int i = 0; i < list.size(); i++) {
-			Eel first = list.get(i);
+			int head = list.get(i).head;
 			catched[i] |= 1L << i;
 			for (int j = 0; j < list.size(); j++) {
-				Eel second = list.get(j);
-				if (first.head >= second.head && first.head <= second.tail) {
+				Eel eel = list.get(j);
+				if (head >= eel.head && head <= eel.tail) {
 					catched[i] |= 1L << j;
 				}
 			}
