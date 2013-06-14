@@ -1,7 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -12,6 +11,7 @@ public class SpaceWarDiv2 {
 		PriorityQueue<Fatigue> fatigueQueue = new PriorityQueue<Fatigue>();
 		Arrays.sort(magicalGirlStrength);
 		List<Enemy> enemies = getSortedEnemies(enemyStrength, enemyCount);
+		
 		int mgIndex = magicalGirlStrength.length - 1;
 		for (int i = enemies.size() - 1; i >= 0; i--) {
 			Enemy enemy = enemies.get(i);
@@ -41,19 +41,16 @@ public class SpaceWarDiv2 {
 	}
 
 	private List<Enemy> getSortedEnemies(int[] enemyStrength, int[] enemyCount) {
-		List<Enemy> list = new LinkedList<SpaceWarDiv2.Enemy>();
+		List<Enemy> list = new ArrayList<SpaceWarDiv2.Enemy>(
+				enemyStrength.length);
 		for (int i = 0; i < enemyStrength.length; i++) {
 			list.add(new Enemy(enemyStrength[i], enemyCount[i]));
 		}
-		Collections.sort(list, new Comparator<Enemy>() {
-			public int compare(Enemy o1, Enemy o2) {
-				return Integer.valueOf(o1.strength).compareTo(o2.strength);
-			}
-		});
+		Collections.sort(list);
 		return list;
 	}
 
-	private class Enemy {
+	private class Enemy implements Comparable<Enemy> {
 
 		public Enemy(Integer strength, Integer cnt) {
 			super();
@@ -68,18 +65,17 @@ public class SpaceWarDiv2 {
 		public String toString() {
 			return "st:" + strength + "cn:" + cnt;
 		}
+
+		public int compareTo(Enemy o) {
+			return strength - o.strength;
+		}
 	}
 
 	private class Fatigue implements Comparable<Fatigue> {
 		int cnt;
+
 		public int compareTo(Fatigue o) {
-			if (cnt < o.cnt) {
-				return -1;
-			} else if (cnt == o.cnt) {
-				return 0;
-			} else {
-				return 1;
-			}
+			return cnt - o.cnt;
 		}
 
 		@Override
